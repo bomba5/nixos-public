@@ -1,0 +1,60 @@
+" Plain vim configuration
+set background=dark
+set cindent
+set cinoptions={1
+set hlsearch
+set incsearch
+syntax on
+
+" Indentation settings: use 4 spaces instead of tabs
+set expandtab        " Use spaces instead of tabs
+set tabstop=4        " Number of spaces tabs count for
+set shiftwidth=4     " Number of spaces for each indentation level
+set softtabstop=4    " Number of spaces when pressing <Tab>
+
+" coc.nvim mappings
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use <Tab> and <CR> (Enter) to select/accept completion
+inoremap <silent><expr> <Tab> pumvisible() ? coc#_select_confirm() : "\<Tab>"
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<CR>"
+
+" Plugins configuration
+set statusline+=%#warningmsg#
+set statusline+=%*
+nmap <C-M><C-M> :NERDTreeToggle<CR>
+nmap <C-p> :Files<CR>
+
+autocmd VimEnter * highlight IndentGuidesOdd  guibg=#2e2e2e ctermbg=235
+autocmd VimEnter * highlight IndentGuidesEven guibg=#262626 ctermbg=234
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 1
+
+" Cosmetics settings
+colorscheme dracula
+
+" Disable background
+hi Normal guibg=NONE ctermbg=NONE
+hi NormalNC guibg=NONE ctermbg=NONE
+hi EndOfBuffer guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE ctermbg=NONE
+hi SignColumn guibg=NONE ctermbg=NONE
+hi VertSplit guibg=NONE ctermbg=NONE
+
+let g:airline_left_sep = ' >'
+let g:airline_right_sep = '· '
+let g:airline_detect_modified = 1
+let g:airline_detect_paste = 1
+let g:airline_theme = 'minimalist'
+let g:airline_section_a = ' '
+let g:airline_section_b = '%{getcwd()}'
+let g:airline_section_c = '%t'
+let g:airline_section_y = '%{strftime("%R")}'
+let g:airline_section_z = '%3p/100 lin:%l col:%c'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1

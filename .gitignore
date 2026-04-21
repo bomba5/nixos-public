@@ -1,0 +1,3 @@
+flake.lock
+dotfiles/nvim/lazy-lock.json
+secrets/*.tmp

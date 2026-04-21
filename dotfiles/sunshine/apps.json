@@ -1,0 +1,35 @@
+{
+  "apps": [
+    {
+      "name": "Desktop",
+      "auto-detach": true,
+      "exclude-global-prep-cmd": false,
+      "exit-timeout": 5,
+      "image-path": "/home/bomba/.config/sunshine/assets/desktop.png",
+      "prep-cmd": [
+        {
+          "do": "sh -c \"hyprctl keyword monitor DP-3,${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}@${SUNSHINE_CLIENT_FPS},0x0,1\"",
+          "undo": "sh -c \"hyprctl keyword monitor DP-3,2560x1440@180,0x0,1\""
+        }
+      ],
+      "wait-all": true
+    },
+    {
+      "name": "Handheld",
+      "auto-detach": true,
+      "exclude-global-prep-cmd": false,
+      "exit-timeout": 5,
+      "image-path": "/home/bomba/.config/sunshine/assets/handheld.png",
+      "prep-cmd": [
+        {
+          "do": "sh -c \"hyprctl keyword monitor DP-3,${SUNSHINE_CLIENT_WIDTH}x${SUNSHINE_CLIENT_HEIGHT}@${SUNSHINE_CLIENT_FPS},0x0,1; /home/bomba/.config/sunshine/steam-prep.sh\"",
+          "undo": "sh -c \"hyprctl keyword monitor DP-3,2560x1440@180,0x0,1\""
+        }
+      ],
+      "wait-all": true
+    }
+  ],
+  "env": {
+    "PATH": "$(PATH):$(HOME)/.local/bin"
+  }
+}

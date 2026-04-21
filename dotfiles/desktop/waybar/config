@@ -1,0 +1,188 @@
+{
+  "height": 20,
+  "reload_style_on_change": true,
+
+  "modules-left": [
+    "group/clock",
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "group/group-power",
+    "group/hardware",
+    "pulseaudio"
+  ],
+
+  "group/group-power": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power",
+      "custom/quit",
+      "custom/lock",
+      "custom/reboot",
+      "battery"
+    ]
+  },
+
+  "custom/power": {
+    "format": "  ",
+    "tooltip": false,
+    "on-click": "shutdown now"
+  },
+  "custom/quit": {
+    "format": " 󰗼 ",
+    "tooltip": false,
+    "on-click": "hyprctl dispatch exit"
+  },
+  "custom/lock": {
+    "format": " 󰍁 ",
+    "tooltip": false,
+    "on-click": "hyprlock"
+  },
+  "custom/reboot": {
+    "format": " 󰜉 ",
+    "tooltip": false,
+    "on-click": "reboot"
+  },
+
+  "group/hardware": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "memory",
+      "cpu",
+      "temperature",
+      "network",
+      "bluetooth"
+    ]
+  },
+
+  "group/clock": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-time",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/time",
+      "custom/date"
+    ]
+  },
+
+  "custom/time": {
+    "format": "{}",
+    "tooltip": false,
+    "exec": "date '+ %H:%M:%S » '",
+    "interval": 1
+  },
+  "custom/date": {
+    "format": "{}",
+    "tooltip": false,
+    "exec": "date '+%A, %d %B (CW%V) '",
+    "interval": 60,
+    "class": "hidden-date"
+  },
+
+  "cpu": {
+    "format": " {usage}%"
+  },
+  "memory": {
+    "format": " {}%"
+  },
+
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+    "critical-threshold": 80,
+    "format-critical": "{icon} {temperatureC}°C",
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}  {capacity}%",
+    "format-charging": " 󰂅 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": " {ifname}",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "Disconnected ⚠ {ifname}",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+
+  "pulseaudio": {
+    "scroll-step": 5,
+    "format": "{icon} {format_source}",
+    "format-muted": "󰝟 {format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "format-icons": {
+      "default": [
+        "",
+        " ",
+        " "
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+
+  "bluetooth": {
+	  "format": "",
+	  "format-disabled": "", // an empty format will hide the module
+	  "format-connected": "",
+	  "tooltip-format": "{controller_alias}\t{controller_address}",
+	  "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+	  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "blueman-manager"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{name}: {icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "urgent": "!",
+      "default": " ",
+      "active": " "
+    }
+  }
+}

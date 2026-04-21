@@ -1,0 +1,13 @@
+{
+    "inlayHint.enable": false,
+
+    "clangd.path": "clangd",
+    "clangd.arguments": [
+        "--background-index",
+        "--header-insertion=never"
+    ],
+
+    "clangd.fallbackFlags": [
+        "-std=c++17"
+    ]
+}

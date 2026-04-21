@@ -1,0 +1,14 @@
+background-color=#161718
+text-color=#c4c8c5
+border-color=#FD6AC0
+border-size=1
+border-radius=0
+padding=10
+margin=20
+default-timeout=5000
+font=DejaVu Sans 10
+icons=1
+width=300
+height=150
+anchor=top-center
+progress-color=over #85befd
