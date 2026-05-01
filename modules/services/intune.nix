@@ -14,6 +14,17 @@
 { config, lib, pkgs, unstable, ... }:
 
 let
+  # GStreamer plugin path: WebKit2GTK needs `appsink` from gst-plugins-base
+  # to render the AAD email/password sign-in flow. Without it the embedded
+  # web view fails silently with `GStreamer element appsink not found` and
+  # MSAL drops to errorCode 1001 right after the email is entered.
+  gstPluginPath = lib.makeSearchPath "lib/gstreamer-1.0" [
+    pkgs.gst_all_1.gst-plugins-base
+    pkgs.gst_all_1.gst-plugins-good
+    pkgs.gst_all_1.gst-plugins-bad
+    pkgs.gst_all_1.gst-libav
+  ];
+
   # Wrapper: spoofs /etc/os-release as Ubuntu 24.04 LTS for the duration of
   # intune-portal execution, then restores the real file via trap on exit.
   intune-portal-wrapped = pkgs.writeShellScriptBin "intune-portal" ''
@@ -42,6 +53,7 @@ let
     sudo mount --bind "$FAKE_OS_RELEASE" /etc/os-release
 
     export GIO_EXTRA_MODULES="${pkgs.glib-networking}/lib/gio/modules"
+    export GST_PLUGIN_SYSTEM_PATH_1_0="${gstPluginPath}"
     export SSL_CERT_FILE="/etc/ssl/certs/ca-certificates.crt"
     export SSL_CERT_DIR="/etc/ssl/certs"
     export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS="1"
@@ -66,6 +78,7 @@ in
 
   systemd.services.microsoft-identity-device-broker.environment = {
     GIO_EXTRA_MODULES = "${pkgs.glib-networking}/lib/gio/modules";
+    GST_PLUGIN_SYSTEM_PATH_1_0 = gstPluginPath;
     SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt";
     SSL_CERT_DIR = "/etc/ssl/certs";
     WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS = "1";
